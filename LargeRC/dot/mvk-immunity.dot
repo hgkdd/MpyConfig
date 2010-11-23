@@ -27,47 +27,47 @@ digraph {
     Path_27_HFampIn_HFampFwd    [ini="27-HFampIn-HFampFwd.ini"  condition="1e9<f<=18e9"]
     Path_28_HFampOut_HFampRev   [ini="28-HFampOut-HFampRev.ini" condition="1e9<f<=18e9"]
     
-    Sg -> Sg_LFamp [condition="f<=1e9"]
-    Sg -> Sg_HFamp [condition="1e9<f<=18e9"]
+    Sg -> Sg_LFamp              [condition="f<=1e9"]
+    Sg -> Sg_HFamp              [condition="1e9<f<=18e9"]
     
-    Sg_LFamp -> Amp_Input [dev=Cbl_Sg_LFamp what="S21"]
-    Sg_HFamp -> Amp_Input [dev=Cbl_Sg_HFamp what="S21"]
+    Sg_LFamp -> Amp_Input       [dev=Path_04_sg_LFamp what="S21"]
+    Sg_HFamp -> Amp_Input       [dev=Path_05_sg-HFamp what="S21"]
     
-    Amp_Input -> Amp_LF   [condition="f<=1e9"]
-    Amp_Input -> Amp_HF   [condition="1e9<f<=18e9"]
+    Amp_Input -> Amp_LF         [condition="f<=1e9"]
+    Amp_Input -> Amp_HF         [condition="1e9<f<=18e9"]
 
-    Amp_LF -> Amp_Output   [dev=AmpLF what="S21"]
-    Amp_HF -> Amp_Output   [dev=AmpHF what="S21"]
+    Amp_LF -> Amp_Output        [dev=AmpLF what="S21"]
+    Amp_HF -> Amp_Output        [dev=AmpHF what="S21"]
 
-    Amp_Output -> TxAnt_LF  [condition="f<=1e9"]
-    Amp_Output -> TxAnt_HF  [condition="1e9<f<=18e9"]
+    Amp_Output -> TxAnt_LF      [condition="f<=1e9"]
+    Amp_Output -> TxAnt_HF      [condition="1e9<f<=18e9"]
     
-    TxAnt_LF -> TxAnt  [dev=Cbl_LFamp_TxLFant what="S21"]
-    TxAnt_HF -> TxAnt  [dev=Cbl_HFamp_TxHFant what="S21"]
+    TxAnt_LF -> TxAnt           [dev=Path_06_LFamp_LFcoup_LFant what="S21"]
+    TxAnt_HF -> TxAnt           [dev=Path_08_HFamp_HFant what="S21"]
    
-    Amp_Output -> PmFwd_LF  [condition="f<=1e9"]
-    Amp_Output -> PmFwd_HF1 [condition="1e9<f<=18e9"]
+    Amp_Output -> PmFwd_LF      [condition="f<=1e9"]
+    Amp_Output -> PmFwd_HF1     [condition="1e9<f<=18e9"]
     
-    PmFwd_LF   -> PmFwd [dev=Cbl_LFamp_PmFwd what="S21"]
-    PmFwd_HF1  -> PmFwd_HF2 [dev=Cbl_HFamp_PmFwd what="S21"]
-    PmFwd_HF2  -> PmFwd     [dev=Cbl_HFamp_PmFwd what="S21"]
+    PmFwd_LF   -> PmFwd         [dev=Path_10_LFamp_LFcoup_PMAfwd what="S21"]
+    PmFwd_HF1  -> PmFwd_HF2     [dev=Path_27_HFampIn_HFampFwd what="S21"]
+    PmFwd_HF2  -> PmFwd         [dev=Path_14_HFampFwd_PmAFwd what="S21"]
     
-    TxAnt -> PmRev_LF  [condition="f<=1e9"]
-    TxAnt -> PmRev_HF1 [condition="1e9<f<=18e9"]
+    TxAnt -> PmRev_LF           [condition="f<=1e9"]
+    TxAnt -> PmRev_HF1          [condition="1e9<f<=18e9"]
     
-    PmRev_LF  -> PmRev     [dev=Cbl_TxLFant_PmRev what="S21"]
-    PmRev_HF1 -> PmRev_HF2
-    PmRev_HF2 -> PmRev_HF3
-    PmRev_HF3 -> PmRev     [dev=Cbl_TxHFant_PmRev what="S21"]
+    PmRev_LF  -> PmRev          [dev=Path_13_LFant_LFcoup_PMBrev what="S21"]
+    PmRev_HF1 -> PmRev_HF2      [dev=Path_16_TxHFant_HFampOut what="S21"]
+    PmRev_HF2 -> PmRev_HF3      [dev=Path_28_HFampOut_HFampRev what="S21"]
+    PmRev_HF3 -> PmRev          [dev=Path_15_HFampRev_PmBRev what="S21"]
     
-    RxAntLF -> RxAnt[condition="2e8<=f<=1e9"]
-    RxAntHF -> RxAnt[condition="1e9<f<=18e9"]
+    RxAntLF -> RxAnt            [condition="2e8<=f<=1e9"]
+    RxAntHF -> RxAnt            [condition="1e9<f<=18e9"]
 
-    RxAnt -> RxAnt_LF [condition="f<=1e9"]
-    RxAnt -> RxAnt_HF [condition="1e9<f<=18e9"]
+    RxAnt -> RxAnt_LF           [condition="f<=1e9"]
+    RxAnt -> RxAnt_HF           [condition="1e9<f<=18e9"]
     
-    RxAnt_LF -> SwMatrix [dev=Cbl_SwMatrix_RxLFant what="S21"]
-    RxAnt_HF -> SwMatrix [dev=Cbl_SwMatrix_RxHFant what="S21"]
+    RxAnt_LF -> SwMatrix        [dev=Path_25_RxLFant_SwMatrix what="S21"]
+    RxAnt_HF -> SwMatrix        [dev=Path_26_RxHFant_SwMatrix what="S21"]
     
     SwMatrix -> PM [condition="f<=18e9"]
     
