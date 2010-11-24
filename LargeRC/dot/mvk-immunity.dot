@@ -9,17 +9,17 @@ digraph {
     Pm  [ini="ini\\.ini" ch=1]
     
     Path_04_sg_LFamp            [ini="04-sg-LFamp.ini" condition="f<=18e9"]
-    Path_05_sg-HFamp            [ini="05-sg-HFamp.ini" condition="f<=18e9"]
+    Path_05_sg_HFamp            [ini="05-sg-HFamp.ini" condition="f<=18e9"]
     
     Path_06_LFamp_LFcoup_LFant  [ini="06-LFamp-LFcoup-LFant.ini" condition="8e7<=f<=1e9"]
-    Path_08_HFamp_HFant         [ini="08-HFamp-HFant.ini" condition="1e9<f<=18e9"]
+    Path_08_HFamp_HFant         [ini="08-HFamp-HFant.ini"        condition="f<=18e9"]
 
     Path_10_LFamp_LFcoup_PMAfwd [ini="10-LFamp-LFcoup-PMAfwd.ini" condition="8e7<=f<=1e9"]
     Path_13_LFant_LFcoup_PMBrev [ini="13-LFant-LFcoup-PMBrev.ini" condition="8e7<=f<=1e9"]
     
-    Path_14_HFampFwd_PmAFwd     [ini="14-HFampfwd-PMAfwd.ini"  condition="1e9<f<=18e9"]
-    Path_15_HFampRev_PmBRev     [ini="15-HFamprev-PMBrev.ini"  condition="1e9<f<=18e9"]
-    Path_16_TxHFant_HFampOut    [ini="16-TxHFant-HFampOut.ini" condition="1e9<f<=18e9"]
+    Path_14_HFampFwd_PmAFwd     [ini="14-HFampfwd-PMAfwd.ini"  condition="f<=18e9"]
+    Path_15_HFampRev_PmBRev     [ini="15-HFamprev-PMBrev.ini"  condition="f<=18e9"]
+    Path_16_TxHFant_HFampOut    [ini="16-TxHFant-HFampOut.ini" condition="f<=18e9"]
     
     Path_25_RxLFant_SwMatrix    [ini="25-RxLFant-SwMatrix.ini" condition="f<=18e9"]
     Path_26_RxHFant_SwMatrix    [ini="26-RxHFant-SwMatrix.ini" condition="f<=18e9"]
@@ -31,7 +31,7 @@ digraph {
     Sg -> Sg_HFamp              [condition="1e9<f<=18e9"]
     
     Sg_LFamp -> Amp_Input       [dev=Path_04_sg_LFamp what="S21"]
-    Sg_HFamp -> Amp_Input       [dev=Path_05_sg-HFamp what="S21"]
+    Sg_HFamp -> Amp_Input       [dev=Path_05_sg_HFamp what="S21"]
     
     Amp_Input -> Amp_LF         [condition="f<=1e9"]
     Amp_Input -> Amp_HF         [condition="1e9<f<=18e9"]
