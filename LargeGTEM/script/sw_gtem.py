@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import visa
+
 from mpy.device.driver import DRIVER
 from mpy.tools.Configuration import strbool
 from mpy.tools.util import format_block
@@ -30,6 +32,7 @@ class SWController(DRIVER):
                      'virtual': strbool}}
 
     def __init__(self):
+        self.term_chars = visa.LF
         DRIVER.__init__(self)
         self.error=0
     

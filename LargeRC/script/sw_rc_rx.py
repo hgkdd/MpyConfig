@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+import visa
+
 from mpy.device.driver import DRIVER
 from mpy.tools.Configuration import strbool
 from mpy.tools.Configuration import fstrcmp
 from mpy.tools.util import format_block
 
-LF='R3P1R6P0'
-HF='R3P0R6P1'
 
 class SWController(DRIVER):
     conftmpl={'description': 
@@ -26,6 +26,9 @@ class SWController(DRIVER):
                      'virtual': strbool}}
 
     def __init__(self):
+        self.LF='R3P1R6P0'
+        self.HF='R3P0R6P1'
+        self.term_chars = visa.LF
         DRIVER.__init__(self)
         self.error=0
         self.islf=None
@@ -51,21 +54,25 @@ class SWController(DRIVER):
             self.swfreq = self.conf['init_value']['swfreq']
         except KeyError:
             pass
-        self.islf=(LF in self.ask(''))
         return self.error
+
+    def _islf(self):
+        ans = self.ask('')
+        R3=self.LF[:4]
+        R6=self.LF[4:]
+        return (R3 in ans) and (R6 in ans)
         
     def SetFreq(self, f):
-        if f<self.swfreq:
-            cmd=LF
+        if f<=self.swfreq:
+            cmd=self.LF
         else:
-            cmd=HF
+            cmd=self.HF
         ans=self.ask(cmd)
-        self.islf=(LF in ans)
         return 0, f
 
     def SetAtt(self, state=True):
         pm=(self.out == 'powermeter')
-        if self.islf:
+        if self._islf():
             if state:
                 if pm:
                     cmd='R4P1R5P0'
@@ -86,7 +93,8 @@ class SWController(DRIVER):
                 if pm:
                     cmd='R4P0R5P0'                
                 else:
-                    cmd='R4P1R5P0'                        
+                    cmd='R4P1R5P0'
+        #print state, pm, cmd
         ans=self.ask(cmd)
         return ans
         
@@ -121,10 +129,11 @@ if __name__ == '__main__':
     
     sw=SWController()
     sw.Init(ini)
-    for f in np.linspace(0,4.2e9,20):
+    for f in np.linspace(0,4.2e9,10):
         print f, sw.SetFreq(f)
-        print "Att On:", sw.SetAtt() 
-        time.sleep(0.5)
+        print "Att On: ", sw.SetAtt() 
+        time.sleep(1)
         print "Att Off:", sw.SetAtt(False) 
+        time.sleep(1)
 
     sw.Quit()
