@@ -1,5 +1,5 @@
 digraph {
-    Sw                          [ini="sw_rc.ini"         condition="f<=18e9"]
+    Sw                          [ini="sw_rc.ini"              condition="f<=18e9"]
     Sg                          [ini="sg-rs-smf100a.ini"      condition="1e5<=f<=22e9"]
     AmpLF                       [ini="amp-lf-bonn-blwa.ini"   condition="8e7<=f<=1e9"]
     #AmpHF                      [ini="amp-hf-bonn-blma.ini"   condition="1e9<f<=18e9"]
@@ -20,11 +20,16 @@ digraph {
     Path_15_HFampRev_PmBRev     [ini="15-HFamprev-PMBrev.ini"  condition="f<=18e9"]
     Path_16_TxHFant_HFampOut    [ini="16-TxHFant-HFampOut.ini" condition="f<=18e9"]
 
-    Path_27_HFampOut_HFampFwd   [ini="27-HFampOut-HFampFwd.ini"  condition="1e9<f<=18e9"]
+    Path_27_HFampOut_HFampFwd   [ini="27-HFampOut-HFampFwd.ini" condition="1e9<f<=18e9"]
     Path_28_HFampOut_HFampRev   [ini="28-HFampOut-HFampRev.ini" condition="1e9<f<=18e9"]
+    
+    Path_29_AntCable_TxLF       [ini="29-AntCable-TxLF.ini"  condition="10e6<f<=18e9"]
+    Path_30_AntCable_TxHF       [ini="30-AntCable-TxHF.ini"  condition="10e6<f<=18e9"]
+    Path_31_AntCable_RxLF       [ini="31-AntCable-RxLF.ini"  condition="10e6<f<=18e9"]
+    Path_32_AntCable_RxHF       [ini="32-AntCable-RxHF.ini"  condition="10e6<f<=18e9"]
 
-    FP                          [ini="prb_ar_fm7004.ini"]
-    tuner                       [ini="mc_teseq_stirrer.ini"]
+    Fprobe                      [ini="prb_ar_fm7004.ini"]
+    Tuner                       [ini="mc_teseq_stirrer.ini"]
 
     TxAnt_LF                    [ini="ant-rs-hl223.ini" condition="100e6 <=f<=1e9"]
     TxAnt_HF                    [ini="ant-rs-hf907.ini" condition="1e9<f<=18e9"]
@@ -43,11 +48,14 @@ digraph {
     Amp_LF -> Amp_Output        [dev=AmpLF what="S21"]
     Amp_HF -> Amp_Output        #[dev=AmpHF what="S21"]
 
-    Amp_Output -> AOLF          [condition="f<=1e9"]
-    Amp_Output -> AOHF          [condition="1e9<f<=18e9"]
+    Amp_Output -> AmpOut_LF     [condition="f<=1e9"]
+    Amp_Output -> AmpOut_HF     [condition="1e9<f<=18e9"]
     
-    AOLF -> TxAnt               [dev=Path_06_LFamp_LFcoup_LFant what="S21" condition="f<=1e9"]
-    AOHF -> TxAnt               [dev=Path_08_HFamp_HFant what="S21" condition="1e9<f<=18e9"]
+    AmpOut_LF -> FeedthrTx_LF   [dev=Path_06_LFamp_LFcoup_LFant what="S21" condition="f<=1e9"]
+    AmpOut_HF -> FeedthrTx_HF   [dev=Path_08_HFamp_HFant what="S21" condition="1e9<f<=18e9"]
+    
+    FeedthrTx_LF -> TxAnt       [dev=Path_29_AntCable_TxLF what="S21" condition="f<=1e9"]
+    FeedthrTx_HF -> TxAnt       [dev=Path_30_AntCable_TxHF what="S21" condition="1e9<f<=18e9"]
     
     TxAnt -> TxAnt_LF           [condition="f<=1e9"]
     TxAnt -> TxAnt_HF           [condition="1e9<f<=18e9"]
@@ -56,19 +64,22 @@ digraph {
     Amp_Output -> PmFwd_HF1     [condition="1e9<f<=18e9"]
     
     PmFwd_LF   -> Pm1           [dev=Path_10_LFamp_LFcoup_PMAfwd what="S21" condition="f<=1e9"]
-    PmFwd_HF1  -> PmFwd_HF2     [dev=Path_27_HFampOut_HFampFwd what="S21" condition="1e9<f<=18e9"]
-    PmFwd_HF2  -> Pm1           [dev=Path_14_HFampFwd_PmAFwd what="S21" condition="1e9<f<=18e9"]
+    PmFwd_HF1  -> PmFwd_HF2     [dev=Path_27_HFampOut_HFampFwd   what="S21" condition="1e9<f<=18e9"]
+    PmFwd_HF2  -> Pm1           [dev=Path_14_HFampFwd_PmAFwd     what="S21" condition="1e9<f<=18e9"]
     
     TxAnt -> PmRev_LF           [condition="f<=1e9"]
     TxAnt -> PmRev_HF1          [condition="1e9<f<=18e9"]
     
     PmRev_LF  -> Pm2            [dev=Path_13_LFant_LFcoup_PMBrev what="S21" condition="f<=1e9"]
-    PmRev_HF1 -> PmRev_HF2      [dev=Path_16_TxHFant_HFampOut what="S21" condition="1e9<f<=18e9"]
-    PmRev_HF2 -> PmRev_HF3      [dev=Path_28_HFampOut_HFampRev what="S21" condition="1e9<f<=18e9"]
-    PmRev_HF3 -> Pm2            [dev=Path_15_HFampRev_PmBRev what="S21" condition="1e9<f<=18e9"]
+    PmRev_HF1 -> PmRev_HF2      [dev=Path_16_TxHFant_HFampOut    what="S21" condition="1e9<f<=18e9"]
+    PmRev_HF2 -> PmRev_HF3      [dev=Path_28_HFampOut_HFampRev   what="S21" condition="1e9<f<=18e9"]
+    PmRev_HF3 -> Pm2            [dev=Path_15_HFampRev_PmBRev     what="S21" condition="1e9<f<=18e9"]
     
-    RxAntLF -> RxAnt            [condition="f<=1e9"]
-    RxAntHF -> RxAnt            [condition="1e9<f<=18e9"]
+    RxAntLF -> FeedthrRx_LF     [condition="f<=1e9"]       
+    RxAntHF -> ReedthrRx_HF     [condition="1e9<f<=18e9"]       
+    
+    FeedthrRx_LF -> RxAnt       [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9"]
+    FeedthrRx_HF -> RxAnt       [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9"]
     
     RxAnt -> Pm                 [dev=Pm]
 }
