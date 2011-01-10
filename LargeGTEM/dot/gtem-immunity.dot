@@ -1,5 +1,5 @@
 digraph {
-    sg [ini="sg_rs_swm05.ini"]
+    sg [ini="sg_rs_smb100a.ini"]
     amp1 [ini="amp_ifi_smx25.ini" condition="10e3<=f<=1e9"]
     amp2 [ini="amp_ar_25s1g4.ini" condition="800e6<=f<=4.2e9"]
     pm1 [ini="pm_gt_8542.ini" ch=1]
