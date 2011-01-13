@@ -2,10 +2,10 @@ digraph {
     Sw                          [ini="sw_rc.ini"              condition="f<=18e9"]
     Sg                          [ini="sg-rs-smf100a.ini"      condition="1e5<=f<=22e9"]
     AmpLF                       [ini="amp-lf-bonn-blwa.ini"   condition="8e7<=f<=1e9"]
-    #AmpHF                      [ini="amp-hf-bonn-blma.ini"   condition="1e9<f<=18e9"]
+    AmpHF                       [ini="amp-hf-bonn-blma.ini"   condition="1e9<f<=18e9"]
     Pm                          [ini="pm_rxatt.ini" ch=1      condition="1e7<f<=18e9"]
     Pm1                         [ini="pm_rs_nrp_2ch.ini" ch=1 condition="1e7<f<=18e9"]
-    Pm2                         [ini="pm_rs_nrp_2ch.ini" ch=2 condition="1e7<f<=18e9"]
+    #Pm2                         [ini="pm_rs_nrp_2ch.ini" ch=2 condition="1e7<f<=18e9"]
     
     Path_04_sg_LFamp            [ini="04-sg-LFamp.ini" condition="f<=18e9"]
     Path_05_sg_HFamp            [ini="05-sg-HFamp.ini" condition="f<=18e9"]
@@ -46,7 +46,7 @@ digraph {
     Amp_Input -> Amp_HF         [condition="1e9<f<=18e9"]
 
     Amp_LF -> Amp_Output        [dev=AmpLF what="S21"]
-    Amp_HF -> Amp_Output        #[dev=AmpHF what="S21"]
+    Amp_HF -> Amp_Output        [dev=AmpHF what="S21"]
 
     Amp_Output -> AmpOut_LF     [condition="f<=1e9"]
     Amp_Output -> AmpOut_HF     [condition="1e9<f<=18e9"]
@@ -75,11 +75,14 @@ digraph {
     PmRev_HF2 -> PmRev_HF3      [dev=Path_28_HFampOut_HFampRev   what="S21" condition="1e9<f<=18e9"]
     PmRev_HF3 -> Pm2            [dev=Path_15_HFampRev_PmBRev     what="S21" condition="1e9<f<=18e9"]
     
-    RxAntLF -> FeedthrRx_LF     [condition="f<=1e9"]       
-    RxAntHF -> FeedthrRx_HF     [condition="1e9<f<=18e9"]       
+    RxAnt -> RxAntLF            [condition="f<=1e9"]
+    RxAnt -> RxAntHF            [condition="1e9<f<=18e9"]
     
-    FeedthrRx_LF -> RxAnt       [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9"]
-    FeedthrRx_HF -> RxAnt       [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9"]
-    
-    RxAnt -> Pm                 [dev=Pm]
+    RxAntLF -> FeedthrRx_LF     [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9"]       
+    RxAntHF -> FeedthrRx_HF     [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9"]     
+
+    FeedthrRx_LF -> FeedthrRx   [condition="f<=1e9"]       
+    FeedthrRx_HF -> FeedthrRx   [condition="1e9<f<=18e9"]       
+        
+    FeedthrRx -> Pm
 }
