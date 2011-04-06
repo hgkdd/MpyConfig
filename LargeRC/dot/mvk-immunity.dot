@@ -18,16 +18,15 @@ digraph {
     
     Path_14_HFampFwd_PmAFwd     [ini="14-HFampfwd-PMAfwd.ini"  condition="f<=18e9"]
     Path_15_HFampRev_PmBRev     [ini="15-HFamprev-PMBrev.ini"  condition="f<=18e9"]
-    Path_16_TxHFant_HFampOut    [ini="16-TxHFant-HFampOut.ini" condition="f<=18e9"]
-
-    Path_27_HFampOut_HFampFwd   [ini="27-HFampOut-HFampFwd.ini" condition="1e9<f<=18e9" color="blue"]
-    Path_28_HFampOut_HFampRev   [ini="28-HFampOut-HFampRev.ini" condition="1e9<f<=18e9" color="blue"]
     
     Path_29_AntCable_TxLF       [ini="29-AntCable-TxLF.ini"  condition="10e6<f<=18e9"]
     Path_30_AntCable_TxHF       [ini="30-AntCable-TxHF.ini"  condition="10e6<f<=18e9"]
     Path_31_AntCable_RxLF       [ini="31-AntCable-RxLF.ini"  condition="10e6<f<=18e9"]
     Path_32_AntCable_RxHF       [ini="32-AntCable-RxHF.ini"  condition="10e6<f<=18e9"]
 
+    coupler_blma                [ini="coupler-blma.ini" condition="1e9<f<=18e9" color="blue"]
+    corr_hftx                   [ini="corr_hftx.ini" condition="1e9<f<=18e9" color="blue"]
+    
     Fprobe                      [ini="prb_ar_fm7004.ini" color="green"]
     Tuner                       [ini="mc_teseq_stirrer.ini" color="green"]
 
@@ -45,53 +44,55 @@ digraph {
     Sg -> Sg_LFamp              [condition="f<=1e9" color="red"]
     Sg -> Sg_HFamp              [condition="1e9<f<=18e9" color="blue"]
     
-    Sg_LFamp -> Amp_Input       [dev=Path_04_sg_LFamp what="S21"]
-    Sg_HFamp -> Amp_Input       [dev=Path_05_sg_HFamp what="S21"]
+    Sg_LFamp -> Amp_Input       [dev=Path_04_sg_LFamp what="S21" label="04"]
+    Sg_HFamp -> Amp_Input       [dev=Path_05_sg_HFamp what="S21" label="05"]
     
     Amp_Input -> Amp_LF         [condition="f<=1e9" color="red"]
     Amp_Input -> Amp_HF         [condition="1e9<f<=18e9" color="blue"]
 
-    Amp_LF -> Amp_Output        [dev=AmpLF what="S21"]
-    Amp_HF -> Amp_Output        [dev=AmpHF what="S21"]
+    Amp_LF -> Amp_Output        [dev=AmpLF what="S21" label=""]
+    Amp_HF -> Amp_Output        [dev=AmpHF what="S21" label=""]
 
     Amp_Output -> AmpOut_LF     [condition="f<=1e9" color="red"]
     Amp_Output -> AmpOut_HF     [condition="1e9<f<=18e9" color="blue"]
+    AmpOut_HF -> AmpOut_HFout   [dev=coupler_blma what="S21" condition="1e9<f<=18e9" color="blue" label="c_S21"] 
+ 
+    AmpOut_LF -> FeedthrTx_LF   [dev=Path_06_LFamp_LFcoup_LFant what="S21" condition="f<=1e9" color="red" label="06"]
+    AmpOut_HFout -> corrhf [dev=corr_hftx what="S21" condition="1e9<f<=18e9" color="blue" label="corr_hf"]
+    corrhf -> FeedthrTx_HF   [dev=Path_08_HFamp_HFant what="S21" condition="1e9<f<=18e9" color="blue" label="08"]
     
-    AmpOut_LF -> FeedthrTx_LF   [dev=Path_06_LFamp_LFcoup_LFant what="S21" condition="f<=1e9" color="red"]
-    AmpOut_HF -> FeedthrTx_HF   [dev=Path_08_HFamp_HFant what="S21" condition="1e9<f<=18e9" color="blue"]
-    
-    FeedthrTx_LF -> TxAnt_LF    [dev=Path_29_AntCable_TxLF what="S21" condition="f<=1e9" color="red"]
-    FeedthrTx_HF -> TxAnt_HF    [dev=Path_30_AntCable_TxHF what="S21" condition="1e9<f<=18e9" color="blue"]
+    FeedthrTx_LF -> TxAnt_LF    [dev=Path_29_AntCable_TxLF what="S21" condition="f<=1e9" color="red" label="29"]
+    FeedthrTx_HF -> TxAnt_HF    [dev=Path_30_AntCable_TxHF what="S21" condition="1e9<f<=18e9" color="blue" label="30"]
     
     TxAnt_LF -> TxAnt           [condition="f<=1e9" color="red"]
     TxAnt_HF -> TxAnt           [condition="1e9<f<=18e9" color="blue"]
        
     Amp_Output -> PmFwd_LF      [condition="8e7<=f<=1e9"]
-    Amp_Output -> PmFwd_HF1     [condition="1e9<f<=18e9" color="blue"]
+    Amp_Output -> PmFwd_HF      [condition="1e9<f<=18e9" color="blue"]
     
-    PmFwd_LF   -> Pm1           [dev=Path_10_LFamp_LFcoup_PMAfwd what="S21" condition="f<=1e9" color="red"]
-    PmFwd_HF1  -> PmFwd_HF2     [dev=Path_27_HFampOut_HFampFwd   what="S21" condition="1e9<f<=18e9" color="blue"]
-    PmFwd_HF2  -> Pm1           [dev=Path_14_HFampFwd_PmAFwd     what="S21" condition="1e9<f<=18e9" color="blue"]
+    PmFwd_LF   -> Pm1           [dev=Path_10_LFamp_LFcoup_PMAfwd what="S21" condition="f<=1e9" color="red" label="10"]
+    PmFwd_HF   -> PmFwd_HFout   [dev=coupler_blma  what="S31" condition="1e9<f<=18e9" color="blue" label="c_S31"]
+    PmFwd_HFout -> Pm1          [dev=Path_14_HFampFwd_PmAFwd     what="S21" condition="1e9<f<=18e9" color="blue" label="14"]
 
-    TxAnt -> TxAnt_LFr           [dev=TxAnt_LF condition="f<=1e9" color="red"]
-    TxAnt -> TxAnt_HFr           [dev=TxAnt_HF condition="1e9<f<=18e9" color="blue"]
+    TxAnt -> TxAnt_LFr          [dev=TxAnt_LF condition="f<=1e9" color="red" label="TxAnt_LF"]
+    TxAnt -> TxAnt_HFr          [dev=TxAnt_HF condition="1e9<f<=18e9" color="blue" label="TxAnt_HF"]
 
-    TxAnt_LFr -> FeedthrTx_LFr    [dev=Path_29_AntCable_TxLF what="S21" condition="f<=1e9" color="red"]
-    TxAnt_HFr -> FeedthrTx_HFr    [dev=Path_30_AntCable_TxHF what="S21" condition="1e9<f<=18e9" color="blue"]
+    TxAnt_LFr -> FeedthrTx_LFr  [dev=Path_29_AntCable_TxLF what="S21" condition="f<=1e9" color="red" label="29"]
+    TxAnt_HFr -> FeedthrTx_HFr  [dev=Path_30_AntCable_TxHF what="S21" condition="1e9<f<=18e9" color="blue" label="30"]
     
-    FeedthrTx_LFr -> PmRev_LF    [condition="f<=1e9" color="red"]
-    FeedthrTx_HFr -> PmRev_HF1   [condition="1e9<f<=18e9" color="blue"]
+    FeedthrTx_LFr -> PmRev_LF   [condition="f<=1e9" color="red"]
+    FeedthrTx_HFr -> PmRev_HF   [condition="1e9<f<=18e9" color="blue"]
     
-    PmRev_LF  -> Pm2            [dev=Path_13_LFant_LFcoup_PMBrev what="S21" condition="f<=1e9" color="red"]
-    PmRev_HF1 -> PmRev_HF2      [dev=Path_16_TxHFant_HFampOut    what="S21" condition="1e9<f<=18e9" color="blue"]
-    PmRev_HF2 -> PmRev_HF3      [dev=Path_28_HFampOut_HFampRev   what="S21" condition="1e9<f<=18e9" color="blue"]
-    PmRev_HF3 -> Pm2            [dev=Path_15_HFampRev_PmBRev     what="S21" condition="1e9<f<=18e9" color="blue"]
+    PmRev_LF  -> Pm2            [dev=Path_13_LFant_LFcoup_PMBrev what="S21" condition="f<=1e9" color="red" label="13"]
+    PmRev_HF -> PmRev_HF2       [dev=Path_08_HFamp_HFant    what="S21" condition="1e9<f<=18e9" color="blue" label="08"]
+    PmRev_HF2 -> PmRev_HF3      [dev=coupler_blma   what="S42" condition="1e9<f<=18e9" color="blue" label="c_S42"]
+    PmRev_HF3 -> Pm2            [dev=Path_15_HFampRev_PmBRev     what="S21" condition="1e9<f<=18e9" color="blue" label="15"]
     
     RxAnt -> RxAntLF            [condition="f<=1e9" color="red"]
     RxAnt -> RxAntHF            [condition="1e9<f<=18e9" color="blue"]
     
-    RxAntLF -> FeedthrRx_LF     [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9" color="red"]       
-    RxAntHF -> FeedthrRx_HF     [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9" color="blue"]     
+    RxAntLF -> FeedthrRx_LF     [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9" color="red" label="31"]       
+    RxAntHF -> FeedthrRx_HF     [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9" color="blue" label="32"]     
 
     FeedthrRx_LF -> FeedthrRx   [condition="f<=1e9" color="red"]       
     FeedthrRx_HF -> FeedthrRx   [condition="1e9<f<=18e9" color="blue"]       
