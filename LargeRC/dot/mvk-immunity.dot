@@ -27,7 +27,8 @@ digraph {
     coupler_blma                [ini="coupler-blma.ini" condition="1e9<f<=18e9" color="blue"]
     corr_hftx                   [ini="corr_hftx.ini" condition="1e9<f<=18e9" color="blue"]
     
-    Fprobe                      [ini="prb_ar_fm7004.ini" color="green"]
+    #Fprobe                      [ini="prb_ar_fm7004.ini" color="green"]
+    Fprobe                      [ini="prb_pmm_ep601.ini" color="green"]
     Tuner                       [ini="mc_teseq_stirrer.ini" color="green"]
 
     TxAnt_LF                    [ini="ant-rs-hl223.ini" condition="100e6 <=f<=1e9"]
@@ -88,11 +89,11 @@ digraph {
     PmRev_HF2 -> PmRev_HF3      [dev=coupler_blma   what="S42" condition="1e9<f<=18e9" color="blue" label="c_S42"]
     PmRev_HF3 -> Pm2            [dev=Path_15_HFampRev_PmBRev     what="S21" condition="1e9<f<=18e9" color="blue" label="15"]
     
-    RxAnt -> RxAntLF            [condition="f<=1e9" color="red"]
-    RxAnt -> RxAntHF            [condition="1e9<f<=18e9" color="blue"]
+    RxAnt -> RxAnt_LF            [condition="f<=1e9" color="red"]
+    RxAnt -> RxAnt_HF            [condition="1e9<f<=18e9" color="blue"]
     
-    RxAntLF -> FeedthrRx_LF     [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9" color="red" label="31"]       
-    RxAntHF -> FeedthrRx_HF     [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9" color="blue" label="32"]     
+    RxAnt_LF -> FeedthrRx_LF     [dev=Path_31_AntCable_RxLF what="S21" condition="f<=1e9" color="red" label="31"]       
+    RxAnt_HF -> FeedthrRx_HF     [dev=Path_32_AntCable_RxHF what="S21" condition="1e9<f<=18e9" color="blue" label="32"]     
 
     FeedthrRx_LF -> FeedthrRx   [condition="f<=1e9" color="red"]       
     FeedthrRx_HF -> FeedthrRx   [condition="1e9<f<=18e9" color="blue"]       
