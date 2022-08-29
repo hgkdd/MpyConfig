@@ -5,3 +5,6 @@ syntax: glob
 *.bak
 .DS_Store
 venv/*
+# Default ignored files
+.idea/workspace.xml
+.idea/*
