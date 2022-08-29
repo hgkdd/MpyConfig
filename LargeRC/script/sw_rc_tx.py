@@ -33,10 +33,11 @@ class SWController(DRIVER):
         self.error = 0
         self.islf = None
 
-    def ask(self, cmd):
+    def query(self, cmd):
         if not self.dev:
             return None
-        ans = self.dev.ask(cmd)
+        # ans = self.dev.ask(cmd)
+        ans = self.dev.query(cmd)
         return ans
 
     def Init(self, ini, ch=1):
@@ -67,7 +68,7 @@ class SWController(DRIVER):
             cmd = self.LF
         else:
             cmd = self.HF
-        ans = self.ask(cmd)
+        ans = self.query(cmd)
         return 0, f
 
     def Quit(self):
