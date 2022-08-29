@@ -3,7 +3,7 @@ import sys
 import gzip
 import pprint
 try:
-    import cPickle as pickle
+    import pickle as pickle
 except ImportError:
     import pickle
 import MSC
@@ -49,7 +49,7 @@ def update_conf (cdict):
     try:
         import config
         cdict.update(config.cdict)
-        print "Configuration updated from 'config.py'."
+        print("Configuration updated from 'config.py'.")
     except ImportError:
         pass
     
@@ -59,13 +59,13 @@ def update_conf (cdict):
                 d, nm = os.path.split(name)
                 _mod = __import__(nm[:nm.rindex('.')])
                 cdict.update(getattr(_mod, 'cdict'))
-                print "Configuration updated from '%s'."%name
+                print("Configuration updated from '%s'."%name)
             except:
                 try:
                     dct=eval(name)
                     if type(dct) == type({}):
                         cdict.update(dct)
-                        print "Configuration updated from '%s'."%str(dct)
+                        print("Configuration updated from '%s'."%str(dct))
                 except:
                     pass
 
@@ -89,10 +89,10 @@ def load_from_autosave(fname):
                     del cmd
                     msc=None
                     cmd=None
-        except IOError, m:
+        except IOError as m:
             # this is no problem
             msc.messenger("IOError during check for autosave-file: %s\nContinue with normal operation..."%m, [])
-        except (UnpicklingError, AttributeError, EOFError, ImportError, IndexError), m:
+        except (UnpicklingError, AttributeError, EOFError, ImportError, IndexError) as m:
             # unpickle was not succesful, but we will continue anyway
             # user can decide later if he want to finish.
             msc.messenger("Error during unpickle of autosave-file: %s\nContinue with normal operation..."%m, []) 
@@ -112,13 +112,13 @@ def make_logger_list(msc, clogger):
         elif len(_lst)==2:
             try:
                 _mod = __import__(_lst[0])
-            except ImportError, m:
+            except ImportError as m:
                 _mod = None
                 msc.messenger("ImportError: %s"%m, [])
         if _mod:
             try:
                 logger.append(getattr(msc,_l))
-            except AttributeError, m:
+            except AttributeError as m:
                 msc.messenger("Logger not found: %s"%m, [])
     if not len(logger):  #empty
         logger=[msc.stdlogger] # fall back to stdlogger
@@ -128,8 +128,8 @@ def make_logger_list(msc, clogger):
 if __name__ == '__main__':
 
     update_conf(cdict)
-    print "Configuration values:"
-    print
+    print("Configuration values:")
+    print()
     pprint.pprint (cdict)
             
     msc,cmd=load_from_autosave(cdict['autosave_filename'])
@@ -137,10 +137,10 @@ if __name__ == '__main__':
     if not msc:
         if cdict['pickle_input_filename']:
             pfile = myopen(cdict['pickle_input_filename'], "rb")
-            print "Loading input pickle file '%s'..."%cdict['pickle_input_filename']
+            print("Loading input pickle file '%s'..."%cdict['pickle_input_filename'])
             msc=pickle.load(pfile)
             pfile.close()
-            print "...done"
+            print("...done")
         else:
             msc=MSC.MSC()
         msc.setLogFile(cdict['log_filename'])   
@@ -158,7 +158,7 @@ if __name__ == '__main__':
             mp['description']=_des
             domeas=True
             doeval=True
-            if msc.rawData_Immunity.has_key(_des):
+            if _des in msc.rawData_Immunity:
                 domeas=False
                 doeval=False
                 msg = """"

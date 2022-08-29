@@ -103,7 +103,7 @@ class SWController(DRIVER):
         return 0
 
 if __name__ == '__main__':
-    import StringIO
+    import io
     import numpy as np
     import time
 
@@ -126,15 +126,15 @@ if __name__ == '__main__':
                     SWFREQ = 1e9
                     VIRTUAL = 0
                     """)
-    ini=StringIO.StringIO(ini)
+    ini=io.StringIO(ini)
     
     sw=SWController()
     sw.Init(ini)
     for f in np.linspace(0,4.2e9,10):
-        print f, sw.SetFreq(f)
-        print "Att On: ", sw.SetAtt() 
+        print(f, sw.SetFreq(f))
+        print("Att On: ", sw.SetAtt()) 
         time.sleep(1)
-        print "Att Off:", sw.SetAtt(False) 
+        print("Att Off:", sw.SetAtt(False)) 
         time.sleep(1)
 
     sw.Quit()
