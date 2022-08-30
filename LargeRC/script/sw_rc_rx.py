@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import visa
+# import pyvisa
 
 from mpy.device.driver import DRIVER
 from mpy.tools.Configuration import strbool
@@ -28,19 +28,19 @@ class SWController(DRIVER):
     def __init__(self):
         self.LF='R3P1R6P0'
         self.HF='R3P0R6P1'
-        self.term_chars = visa.LF
+        self.term_chars = '\n'
         DRIVER.__init__(self)
         self.error=0
         self.islf=None
     
-    def ask(self, cmd):
+    def query(self, cmd):
         if not self.dev:
             return None
-        ans=self.dev.ask(cmd)
+        ans=self.dev.query(cmd)
         return ans
     
     def Init(self, ini, ch=1):
-        self.error=DRIVER.Init(self, ini, ch)
+        self.error = DRIVER.Init(self, ini, ch)
 
         self.out='powermeter'
         try:
@@ -57,7 +57,7 @@ class SWController(DRIVER):
         return self.error
 
     def _islf(self):
-        ans = self.ask('')
+        ans = self.query('')
         R3=self.LF[:4]
         R6=self.LF[4:]
         return (R3 in ans) and (R6 in ans)
@@ -67,7 +67,7 @@ class SWController(DRIVER):
             cmd=self.LF
         else:
             cmd=self.HF
-        ans=self.ask(cmd)
+        ans=self.query(cmd)
         return 0, f
 
     def SetAtt(self, state=True):
@@ -95,7 +95,7 @@ class SWController(DRIVER):
                 else:
                     cmd='R4P1R5P0'
         #print state, pm, cmd
-        ans=self.ask(cmd)
+        ans=self.query(cmd)
         return ans
         
     def Quit(self):
