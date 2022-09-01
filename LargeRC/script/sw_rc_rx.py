@@ -144,17 +144,17 @@ if __name__ == '__main__':
 
     sw = SWController()
     sw.Init(ini)
-    while True:
-        cmd = input('Input cmd (q=quit): ')
-        if cmd == 'c':
-            break
-        ans = sw.query(cmd)
-        print(ans)
-    # for f in np.linspace(0,4.2e9,10):
-    #     print(f, sw.SetFreq(f))
-    #     print("Att On: ", sw.SetAtt())
-    #     time.sleep(1)
-    #     print("Att Off:", sw.SetAtt(False))
-    #     time.sleep(1)
+    # while True:
+    #     cmd = input('Input cmd (q=quit): ')
+    #     if cmd == 'c':
+    #         break
+    #     ans = sw.query(cmd)
+    #     print(ans)
+    for f in np.linspace(0,4.2e9,10):
+        print(f, sw.SetFreq(f))
+        print("Att On: ", sw.SetAtt())
+        time.sleep(1)
+        print("Att Off:", sw.SetAtt(False))
+        time.sleep(1)
 
     sw.Quit()
