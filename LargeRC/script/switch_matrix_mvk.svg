@@ -19797,7 +19797,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="R1P0"
-     style="display:none"
+     style="display:inline"
      sodipodi:insensitive="true">
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -19861,7 +19861,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="R1P2"
-     style="display:inline"
+     style="display:none"
      sodipodi:insensitive="true">
     <text
        xml:space="preserve"
@@ -19895,7 +19895,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="R2P0"
-     style="display:none"
+     style="display:inline"
      sodipodi:insensitive="true">
     <path
        style="fill:none;stroke:#ff0000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -19962,7 +19962,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      id="layer8"
      inkscape:label="R3P0"
      sodipodi:insensitive="true"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:none;stroke:#ff0000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 215.81907,93.344128 0.0524,-10.132089"
@@ -20006,7 +20006,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      id="layer10"
      inkscape:label="R4P0"
      sodipodi:insensitive="true"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:none;stroke:#ff0000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 178.17182,83.738184 0.28253,10.646389"
@@ -20058,7 +20058,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      id="layer12"
      inkscape:label="R5P0"
      sodipodi:insensitive="true"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:none;stroke:#ff0000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 178.39683,119.90428 0.17594,11.85178"
@@ -20110,7 +20110,7 @@ kQP+GBFwv/8BcixSkOoaE6IAAAAASUVORK5CYII=
      id="layer14"
      inkscape:label="R6P0"
      sodipodi:insensitive="true"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:none;stroke:#ff0000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 215.80215,129.52798 -0.3612,-9.22614"
