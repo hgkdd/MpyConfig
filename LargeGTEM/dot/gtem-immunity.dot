@@ -1,6 +1,6 @@
 digraph {
     sg [ini="sg_rs_smb100a.ini"]
-    amp1 [ini="amp_ifi_smx25.ini" condition="10e3<=f<=1e9"]
+    amp1 [ini="amp_ametek_cba_1g_030d.ini" condition="1e6<=f<=1e9"]
     amp2 [ini="amp_ar_25s1g4.ini" condition="800e6<=f<=4.2e9"]
     pm1 [ini="pm_gt_8542.ini" ch=1]
     pm2 [ini="pm_gt_8542.ini" ch=2]
