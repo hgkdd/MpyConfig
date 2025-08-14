@@ -1,11 +1,14 @@
 digraph {
-    Sw                          [ini="sw_rc.ini"              condition="f<=18e9"]
+    Sw                          [ini="sw_rc_rxtx.ini"              condition="f<=18e9"]
     Sg                          [ini="sg-rs-smf100a.ini"      condition="1e5<=f<=22e9" color="green"]
     AmpLF                       [ini="amp-lf-bonn-blwa.ini"   condition="8e7<=f<=1e9"]
     AmpHF                       [ini="amp-hf-bonn-blma.ini"   condition="1e9<f<=18e9"]
-    Pm                          [ini="pm_rxatt.ini" ch=1      condition="1e7<f<=18e9" color="green"]
-    Pm1                         [ini="pm_rs_nrp_2ch.ini" ch=1 condition="1e7<f<=18e9" color="green"]
-    Pm2                         [ini="pm_rs_nrp_2ch.ini" ch=2 condition="1e7<f<=18e9" color="green"]
+#    Pm                          [ini="pm_rxatt.ini" ch=1      condition="1e7<f<=18e9" color="green"]
+    Pm                          [ini="pm_lumiloop_lspm2.ini" ch=3      condition="9e3<f<=26e9" color="green"]
+#    Pm1                         [ini="pm_rs_nrp_2ch.ini" ch=1 condition="1e7<f<=18e9" color="green"]
+#    Pm2                         [ini="pm_rs_nrp_2ch.ini" ch=2 condition="1e7<f<=18e9" color="green"]
+    Pm1                         [ini="pm_lumiloop_lspm2.ini" ch=1      condition="9e3<f<=26e9" color="green"]
+    Pm2                         [ini="pm_lumiloop_lspm2.ini" ch=2      condition="9e3<f<=26e9" color="green"]
     
     Path_04_sg_LFamp            [ini="04-sg-LFamp.ini" condition="f<=18e9"]
     Path_05_sg_HFamp            [ini="05-sg-HFamp.ini" condition="f<=18e9"]
@@ -27,7 +30,10 @@ digraph {
     coupler_blma                [ini="coupler-blma.ini" condition="1e9<f<=18e9" color="blue"]
     corr_hftx                   [ini="corr_hftx.ini" condition="1e9<f<=18e9" color="blue"]
     
-    Fprobe                      [ini="prb_ar_fm7004.ini" color="green"]
+    Fprobe1                      [ini="prb_lumiloop_lsprb2.ini" ch=1 color="green" condition="9e3<f<=18e9"]
+    Fprobe2                      [ini="prb_lumiloop_lsprb2.ini" ch=2 color="green" condition="9e3<f<=18e9"]
+    Fprobe3                      [ini="prb_lumiloop_lsprb2.ini" ch=3 color="green" condition="9e3<f<=18e9"]
+    Fprobe4                      [ini="prb_lumiloop_lsprb2.ini" ch=4 color="green" condition="9e3<f<=18e9"]
 
     Tuner                       [ini="mc_teseq_stirrer.ini" color="green"]
 
