@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # import pyvisa
 
-from mpy.device.driver import DRIVER
-from mpy.tools.Configuration import strbool
-from mpy.tools.Configuration import fstrcmp
-from mpy.tools.util import format_block
+from mpylab.device.driver import DRIVER
+from mpylab.tools.Configuration import strbool
+from mpylab.tools.Configuration import fstrcmp
+from mpylab.tools.util import format_block
 
 
 class SWController(DRIVER):
@@ -79,6 +79,8 @@ class SWController(DRIVER):
         return 0, f
 
     def Quit(self):
+        cmd = self.r1_DIRECT+self.r2_TERM+self.r34_REST
+        ans = self.query(cmd)
         return 0
 
 if __name__ == '__main__':
